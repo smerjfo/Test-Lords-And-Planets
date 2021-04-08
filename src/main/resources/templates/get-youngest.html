@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Get Youngest</title>
+</head>
+<body>
+<h1>Youngest Lords</h1>
+<table>
+    <th:block th:each="p:${list}">
+        <tr>
+            <td th:text="${p.getName()}"></td>
+            <td th:text="${p.getAge()}"></td>
+        </tr>
+    </th:block>
+</table>
+<form action="/hello/add-lord" method="get">
+    <button  id="button">Create new Lord</button>
+</form>
+</body>
+</html>

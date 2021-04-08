@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Destroy Planet</title>
+</head>
+<body>
+<h1>Destroy Planet</h1>
+
+
+
+<form  action="/hello/destroy" method="post" th:object="${planet}">
+    <label for="name">Input Planet's Name: </label>
+        <input type="text" th:field="*{name}" id="name">
+    <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    <br/>
+    <input type="submit" value="delete" id="button">
+</form>
+
+</body>
+</html>

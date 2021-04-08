@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new Planet</title>
+</head>
+<body>
+<h1>Add New Planet</h1>
+<form action="/hello/add-planet" method="post" th:object="${planet}">
+    <label for="nameOfPlanet">Add planet:</label>
+    <input type="text" th:field="*{name}" id="nameOfPlanet">
+    <div style="color: red" th:if="${#fields.hasErrors('name')} " th:errors="*{name}"></div>
+    <br/>
+    <input type="submit" id="button" value="submit">
+</form>
+
+</body>
+</html>

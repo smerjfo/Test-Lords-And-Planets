@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Set-lord-on-planet</title>
+</head>
+<body>
+<h1>Set Lord On Planet</h1>
+<table>
+    <tr>
+        <th> Existing Lords: </th>
+    </tr>
+    <th:block th:each="p:${listLords}">
+        <td th:text="${p.getName()}"/>
+    </th:block>
+</table>
+<table>
+<tr>
+        <th> Existing Planets: </th>
+</tr>
+    <th:block th:each="p:${listPlanets}">
+            <td th:text="${p.getName()}"/>
+    </th:block>
+</table>
+<form action="/hello/set-lord" method="post"  th:object="${lord}">
+
+    <label> Input Lord Name: </label>
+
+        <input type="text" th:field="*{name}" id="lord">
+    <div style="color: red" th:if="${#fields.hasErrors('name')} " th:errors="*{name}"></div>
+
+    <label for="age"> Input Lord Age: </label>
+        <input type="text" th:field="*{age}" id="age">
+    <div style="color: red" th:if="${#fields.hasErrors('age')} " th:errors="*{age}"></div>
+
+
+    <label>
+        Input Planet Name:
+        <input type="text" name="planet" id="planet">
+    </label>
+
+    <input type="submit" value="submit" id="button">
+</form>
+</body>
+</html>
