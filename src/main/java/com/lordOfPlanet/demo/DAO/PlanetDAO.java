@@ -1,4 +1,5 @@
 package com.lordOfPlanet.demo.DAO;
+import com.lordOfPlanet.demo.Model.Lord;
 import com.lordOfPlanet.demo.Model.Planet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,14 +21,12 @@ public class PlanetDAO {
     Create Table "planets"  with primary key
     */
     private void setJdbcTemplatePlanet(){
-        jdbcTemplate.execute("create table IF NOT EXISTS PLANETS\n" +
-            "(\n" +
-            "    NAME VARCHAR(50) not null unique ,\n" +
-            "    ID   UUID not null\n" +
-            "        constraint UUID\n" +
-            "            primary key\n" +
-            ");\n" +
-            "\n" );
+        jdbcTemplate.execute("create table If not exists PLANETS"+
+                "( \n"+
+                "NAME VARCHAR(50) not null unique,\n"+
+                "ID   UUID    \n"+
+                "references LORDS \n"+
+                ");");
     }
     public List<Planet> getPlanets(){return jdbcTemplate.query("SELECT * FROM planets",new PlanetMapper());}
 
@@ -36,6 +35,10 @@ public class PlanetDAO {
 
     public void destroyPlanet (String name) { jdbcTemplate.update("DELETE FROM planets WHERE name=?",name);}
 
-    public  void setNamePlanet (String name){ jdbcTemplate.update("INSERT INTO planets (name,ID) VALUES (?,?)",name, UUID.randomUUID());}
+    public List<Planet> getPlanetById(String uuid){ return jdbcTemplate.query("SELECT * FROM planets WHERE id=?",new Object[]{uuid},new PlanetMapper());}
+
+    public void setKey(String planet, String uuid) { jdbcTemplate.update("UPDATE  PLANETS SET ID=? WHERE name=?  ",uuid,planet);}
+
+    public  void setNamePlanet (String name){ jdbcTemplate.update("INSERT INTO planets (name) VALUES (?)",name);}
 
 }

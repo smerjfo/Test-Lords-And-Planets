@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Loungers</title>
+</head>
+<body>
+<h1>List Loungers:</h1>
+<table>
+    <th:block th:each="p:${listLoungers}">
+        <tr>
+            <td th:text="${p.getName()}"></td>
+            <td th:text="${p.getAge()}"></td>
+        </tr>
+    </th:block>
+</table>
+<form action="/hello/set-lord" method="get">
+    <button  id="button">Set new Lord on Planet</button>
+</form>
+</body>
+</html>

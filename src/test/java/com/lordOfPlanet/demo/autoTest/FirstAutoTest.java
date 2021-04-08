@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 public class FirstAutoTest extends SettingsTest{
 
     @Test
-    public void firstTest()  {
+    public void addLord()  {
          driver.get("http://localhost:8080/hello/add-lord");
          title=driver.getTitle();
          assertEquals("Add new Lord",title);
@@ -50,6 +50,13 @@ public class FirstAutoTest extends SettingsTest{
         driver.findElement(By.id("lord")).sendKeys("Darth Vader");
         driver.findElement(By.id("age")).sendKeys("54");
         driver.findElement(By.id("planet")).sendKeys("Tatuin");
+        driver.findElement(By.id("button")).click();
+    }
+    @Test
+    public void getAllLounger(){
+        driver.get("http://localhost:8080/hello/list-loungers");
+        title =driver.getTitle();
+        assertEquals("List Loungers",title);
         driver.findElement(By.id("button")).click();
     }
 

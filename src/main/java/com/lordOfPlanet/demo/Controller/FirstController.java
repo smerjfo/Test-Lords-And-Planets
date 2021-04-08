@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -23,7 +24,7 @@ public class FirstController {
     private final PlanetDAO planetDAO;
 
     @Autowired
-    public FirstController(PlanetDAO planetDAO, LordDao lordDao){
+    public FirstController( LordDao lordDao,PlanetDAO planetDAO){
         this.lordDao=lordDao;
         this.planetDAO=planetDAO;
     }
@@ -74,11 +75,23 @@ public class FirstController {
         if (planet == null)
             return "destroy-planet";
 
-        lordDao.deleteKeyFromLord(planet.getUuid());
+
         planetDAO.destroyPlanet(planet.getName());
         return "redirect:destroy";
 
 
+    }
+    @GetMapping("/lords-without-planet")
+    public String getLordsWithoutPlanet(Model model){
+        List<Lord> list=lordDao.getAllLord();
+        List<Lord> listLoungers=new ArrayList<>();
+        for(int i=0;i<list.size();i++){
+            if(planetDAO.getPlanetById(list.get(i).getUuid()).isEmpty())
+                listLoungers.add(list.get(i));
+        }
+
+        model.addAttribute("listLoungers",listLoungers);
+        return "list-loungers";
     }
 
     @GetMapping("/set-lord")
@@ -100,9 +113,11 @@ public class FirstController {
     ) {
         if(bindingResult.hasErrors())
             return "set-lord-on-planet";
-        if(planetDAO.getPlanet(planet)!=null&&lordDao.getLord(lord)!=null)
-            lordDao.setKey(lord,planetDAO.getPlanet(planet).getUuid());
-        return "redirect:set-lord";
+        if(planetDAO.getPlanet(planet)!=null&&lordDao.getLord(lord)!=null) {
+            planetDAO.setKey(planet, lordDao.getLord(lord).getUuid());
+            return "redirect:set-lord";
+        }
+        return "set-lord-on-planet";
     }
 
     @GetMapping("/get-youngest")

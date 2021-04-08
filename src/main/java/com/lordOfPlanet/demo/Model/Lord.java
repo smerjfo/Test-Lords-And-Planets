@@ -12,6 +12,16 @@ public class Lord {
     @Min(value = 0, message = "Age should be greater than 0")
     private int age;
 
+    private String uuid;
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
     public String getName() {
         return name;
     }

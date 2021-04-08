@@ -12,6 +12,7 @@ public class LordMapper implements RowMapper<Lord> {
         Lord lord=new Lord();
         lord.setName(resultSet.getString("name"));
         lord.setAge(resultSet.getInt("age"));
+        lord.setUuid(resultSet.getString("id"));
         return lord;
     }
 }

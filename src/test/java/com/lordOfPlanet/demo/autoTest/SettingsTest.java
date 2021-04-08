@@ -13,7 +13,7 @@ public class SettingsTest {
         /*
         Set your chromedriver path here,please
          */
-        System.setProperty("webdriver.chrome.driver","Your Path");
+        System.setProperty("webdriver.chrome.driver","C:\\Users\\smerjfo\\Desktop\\teste\\chromedriver.exe");
         driver=new ChromeDriver();
     }
     @AfterEach
